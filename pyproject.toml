@@ -1,0 +1,15 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[project]
+name = "rationalai-telegram-bot"
+version = "0.0.0"
+authors = [
+  {name = "tusharhero", email = "tusharhero@sdf.org"},
+]
+description = "rationalai-telegram-bot is a Telegram bot that uses the Ollama backend to run the LLM rationalAI (by default)."
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+]
