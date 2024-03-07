@@ -14,7 +14,7 @@ dependencies = [
 authors = [
   {name = "tusharhero", email = "tusharhero@sdf.org"},
 ]
-description = "rationalai-telegram-bot is a Telegram bot that uses the Ollama backend to run the LLM rationalAI (by default)."
+description = "aitelegrambot is a Telegram bot that uses the Ollama backend to run the LLM rationalAI (by default)."
 readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3 :: Only",
