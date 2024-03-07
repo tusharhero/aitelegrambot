@@ -43,6 +43,9 @@ class TelegramBot:
         self.application = ApplicationBuilder().token(bot_token).build()
 
     def run(self):
+        """
+        Run the bot.
+        """
         self.application.add_handler(
             CommandHandler("start", self.command_handlers.start),
         )
