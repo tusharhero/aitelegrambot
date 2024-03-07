@@ -1,3 +1,3 @@
 run: venv
-	$(VENV)/python -m rationalai-telegram-bot
+	$(VENV)/python -m aitelegrambot
 include Makefile.venv

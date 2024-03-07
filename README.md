@@ -1,6 +1,6 @@
 # Introduction
 
-rationalai-telegram-bot is a Telegram bot that uses the
+aitelegrambot is a Telegram bot that uses the
 [Ollama](http://ollama.com/) backend to run the LLM
 [rationalAI](https://ollama.com/tusharhero/rationalai)(by
 default). This bot is designed to provide access to the full
