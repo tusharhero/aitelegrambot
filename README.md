@@ -36,6 +36,10 @@ official bot management bot.
     sudo emerge --ask dev-python/pip
     sudo pip install pipx
     ```
+	And finally, do to make sure its packages are on the path run,
+	```
+	pipx ensurepath
+	```
 3. Open your terminal, and install aitelegrambot by running
    ```bash
    pipx install aitelegrambot

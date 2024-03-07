@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 packages = ["src/aitelegrambot"]
 [project]
 name = "aitelegrambot"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
   "ollama",
   "python-telegram-bot",
@@ -20,3 +20,4 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
 ]
+scripts = { aitelegrambot = "aitelegrambot.__main__:main" }
