@@ -18,7 +18,7 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from ollama import Client
-from importlib.metadata import version
+import aitelegrambot.constants as constants
 
 
 class CommandHandlers:
@@ -50,10 +50,7 @@ class CommandHandlers:
         context: The context for the inference.
         """
         await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=f"""Hello! I am running aitelegrambot v{version('aitelegrambot')}.
-            To inference something please run, `\\infer`.
-            """,
+            chat_id=update.effective_chat.id, text=constants.WELCOME_MESSAGE
         )
 
     async def inference(
