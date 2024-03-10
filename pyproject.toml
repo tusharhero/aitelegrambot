@@ -13,6 +13,7 @@ dependencies = [
 ]
 authors = [
   {name = "tusharhero", email = "tusharhero@sdf.org"},
+  {name = "alokosx", email = "alokosx@gmail.com"},
 ]
 description = "aitelegrambot is a Telegram bot that uses the Ollama backend to run the LLM rationalAI (by default)."
 readme = "README.md"
