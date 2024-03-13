@@ -71,8 +71,7 @@ class CommandHandlers:
         # extracting query from incoming message using regex
         query: str = re.split(" ", update.message.text, 1)[1]
 
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
+        await update.message.reply_text(
             text=self.ollama_client.chat(
                 model=self.model,
                 messages=[
