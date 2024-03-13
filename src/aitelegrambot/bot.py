@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+This module defines the TelegramBot class.
+"""
 
 from telegram.ext import ApplicationBuilder, CommandHandler
 from ollama import Client
@@ -37,9 +40,7 @@ class TelegramBot:
         default_model: The default model to load when the bot is
         initialized.
         """
-        self.command_handlers = CommandHandlers(
-            Client(host=ollama_host), default_model
-        )
+        self.command_handlers = CommandHandlers(Client(host=ollama_host), default_model)
         self.application = ApplicationBuilder().token(bot_token).build()
 
     def run(self):

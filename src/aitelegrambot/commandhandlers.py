@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+This module defines the TelegramBot class.
+"""
+
 from telegram import Update
 from telegram.ext import ContextTypes
 from ollama import Client
@@ -48,7 +52,7 @@ class CommandHandlers:
         Arguments:
         ==========
         update: The update to be processed.
-        context: The context for the inference.
+        context: The context for the message.
         """
         await context.bot.send_message(
             chat_id=update.effective_chat.id, text=constants.WELCOME_MESSAGE
