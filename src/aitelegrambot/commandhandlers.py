@@ -38,8 +38,8 @@ class CommandHandlers:
         ollama_client: The Olama client to use for sending messages.
         model: The model to use for inference.
         """
-        self.ollama_client = ollama_client
-        self.model = model
+        self.ollama_client: Client = ollama_client
+        self.model: str = model
 
     async def start(
         self,

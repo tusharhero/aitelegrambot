@@ -19,7 +19,7 @@
 This module defines the TelegramBot class.
 """
 
-from telegram.ext import ApplicationBuilder, CommandHandler
+from telegram.ext import ApplicationBuilder, CommandHandler, Application
 from ollama import Client
 from aitelegrambot.commandhandlers import CommandHandlers
 
@@ -40,8 +40,10 @@ class TelegramBot:
         default_model: The default model to load when the bot is
         initialized.
         """
-        self.command_handlers = CommandHandlers(Client(host=ollama_host), default_model)
-        self.application = ApplicationBuilder().token(bot_token).build()
+        self.command_handlers: CommandHandlers = CommandHandlers(
+            Client(host=ollama_host), default_model
+        )
+        self.application: Application = ApplicationBuilder().token(bot_token).build()
 
     def run(self):
         """

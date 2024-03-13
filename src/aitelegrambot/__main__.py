@@ -15,10 +15,10 @@ def main():
     logging.getLogger("httpx").setLevel(logging.WARNING)
 
     # Check if the token has been given.
-    required_values = [
+    required_values: list[str] = [
         "TELEGRAM_BOT_TOKEN",
     ]
-    missing_values = [
+    missing_values: list[str] = [
         value for value in required_values if os.environ.get(value) is None
     ]
     if len(missing_values) > 0:
@@ -28,7 +28,7 @@ def main():
         exit()
 
     # Run the bot.
-    bot = TelegramBot(
+    bot: TelegramBot = TelegramBot(
         ollama_host=os.environ.get("OLLAMA_HOST", "localhost:11434"),
         bot_token=os.environ["TELEGRAM_BOT_TOKEN"],
         default_model=os.environ.get("DEFAULT_MODEL", "tusharhero/rationalai"),
