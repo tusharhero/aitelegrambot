@@ -1,5 +1,8 @@
 run: venv
 	$(VENV)/python -m aitelegrambot
+format: venv
+	$(VENV)/python -m pip install black
+	$(VENV)/python -m black src/aitelegrambot
 build: venv
 	rm -rf dist/*
 	$(VENV)/python -m pip install build --upgrade
