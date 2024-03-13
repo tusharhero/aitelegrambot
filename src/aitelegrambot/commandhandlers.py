@@ -21,6 +21,7 @@ from ollama import Client
 import aitelegrambot.constants as constants
 import re
 
+
 class CommandHandlers:
     """
     Class for handling commands, and ollama.
@@ -66,7 +67,10 @@ class CommandHandlers:
         update: The update to be processed.
         context: The context for the inference.
         """
-        query = re.split(" ",update.message.text,1) #extracting query from incoming message using regex
+
+        # extracting query from incoming message using regex
+        query = re.split(" ", update.message.text, 1)
+
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=self.ollama_client.chat(
