@@ -69,7 +69,7 @@ class CommandHandlers:
         """
 
         # extracting query from incoming message using regex
-        query = re.split(" ", update.message.text, 1)
+        query: str = re.split(" ", update.message.text, 1)[1]
 
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
@@ -78,7 +78,7 @@ class CommandHandlers:
                 messages=[
                     {
                         "role": "user",
-                        "content": query[1],
+                        "content": query,
                     },
                 ],
             )["message"]["content"],
