@@ -188,3 +188,24 @@ class AdministrationCommandHandlers(CommandHandlers):
             )
         else:
             await update.message.reply_text("You are not a Admin!")
+
+    async def pull_model(
+        self,
+        update: Update,
+        context: ContextTypes.DEFAULT_TYPE,
+    ):
+        """
+        Pull the model used by Ollama.
+
+        Arguments:
+        ==========
+        update: The update to be processed.
+        context: The context for the inference.
+        """
+        if self.is_admin(update):
+            model: str = self.get_content(update.message.text)
+            await update.message.reply_text(f"Pulling {model}!")
+            self.ollama_state.pull(model)
+            await update.message.reply_text(f"Done pulling {model}!")
+        else:
+            await update.message.reply_text("You are not a Admin!")
