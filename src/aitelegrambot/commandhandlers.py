@@ -173,7 +173,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         context: ContextTypes.DEFAULT_TYPE,
     ):
         """
-        Change the model used Ollama.
+        Change the model used by Ollama.
 
         Arguments:
         ==========
