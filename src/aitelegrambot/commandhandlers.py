@@ -102,7 +102,7 @@ class NormalCommandHandlers(CommandHandlers):
 
         await update.message.reply_text(
             text=self.ollama_state.client.chat(
-                model=self.model,
+                model=self.ollama_state.model,
                 messages=[
                     {
                         "role": "user",
