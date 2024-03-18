@@ -127,7 +127,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         administrator_user_id: Telegram user id of the administrator.
         """
         super().__init__(ollama_state)
-        self.administrator_user_id: str = administrator_user_id
+        self.administrator_user_id: int = administrator_user_id
 
     def is_admin(self, update: Update):
         """

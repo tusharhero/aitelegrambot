@@ -43,7 +43,7 @@ class TelegramBot:
         ollama_host: str,
         bot_token: str,
         default_model: str,
-        administrator_user_id: str,
+        administrator_user_id: int,
     ):
         """
         Initializes an instance of TelegramBot.
