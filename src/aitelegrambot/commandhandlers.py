@@ -24,22 +24,49 @@ from telegram.ext import ContextTypes
 from ollama import Client
 import aitelegrambot.constants as constants
 import re
+from dataclasses import dataclass
 
 
+@dataclass
+class OllamaState:
+    """
+    Arguments
+    ==========
+    ollama_client: The Ollama client to use for sending messages.
+    model: The model to use for inference.
+    """
+
+    client: Client
+    model: str
+
+
+@dataclass
 class CommandHandlers:
     """
-    Class for handling commands, and ollama.
+    Base class for handling commands.
+
+    Arguments
+    ==========
+    ollama_state: The Ollama State with Ollama client and model name.
     """
 
-    def __init__(self, ollama_client: Client, model: str):
+    ollama_state: OllamaState
+
+    def get_content(self, raw_query) -> str:
         """
+        Remove the command from query.
+
         Arguments:
         ==========
-        ollama_client: The Olama client to use for sending messages.
-        model: The model to use for inference.
+        raw_query: the raw query from telegram.
         """
-        self.ollama_client: Client = ollama_client
-        self.model: str = model
+        return re.split(" ", raw_query, 1)[1]
+
+
+class NormalCommandHandlers(CommandHandlers):
+    """
+    Class for handling normal commands.
+    """
 
     async def start(
         self,
@@ -71,12 +98,10 @@ class CommandHandlers:
         update: The update to be processed.
         context: The context for the inference.
         """
-
-        # extracting query from incoming message using regex
-        query: str = re.split(" ", update.message.text, 1)[1]
+        query: str = self.get_content(update.message.text)
 
         await update.message.reply_text(
-            text=self.ollama_client.chat(
+            text=self.ollama_state.client.chat(
                 model=self.model,
                 messages=[
                     {
@@ -85,4 +110,81 @@ class CommandHandlers:
                     },
                 ],
             )["message"]["content"],
+            parse_mode="Markdown",
         )
+
+
+class AdministrationCommandHandlers(CommandHandlers):
+    """
+    Class for administrating Ollama by the Bot administrator.
+    """
+
+    def __init__(self, ollama_state: OllamaState, administrator_user_id: str):
+        """
+        Arguments:
+        ==========
+        ollama_state: The Ollama State with Ollama client and model name.
+        administrator_user_id: Telegram user id of the administrator.
+        """
+        super().__init__(ollama_state)
+        self.administrator_user_id: str = administrator_user_id
+
+    def is_admin(self, update: Update):
+        """
+        Check if the current user is the administrator.
+
+        Arguments:
+        ==========
+        update: The update to be processed.
+        """
+        return update.message.from_user.id == self.administrator_user_id
+
+    async def list_models(
+        self,
+        update: Update,
+        context: ContextTypes.DEFAULT_TYPE,
+    ):
+        """
+        List the available models in Ollama.
+
+        Arguments:
+        ==========
+        update: The update to be processed.
+        context: The context for the inference.
+        """
+        if self.is_admin(update):
+            model_list: list[str] = [
+                model["name"] for model in self.ollama_state.client.list()["models"]
+            ]
+            models_text = "\n".join(
+                [
+                    f"- [{model_name}](https://ollama.com/library/{model_name})\n\
+                `/change_model {model_name}`"
+                    for model_name in model_list
+                ]
+            )
+            await update.message.reply_text(models_text, parse_mode="Markdown")
+        else:
+            await update.message.reply_text("You are not a Admin!")
+
+    async def change_model(
+        self,
+        update: Update,
+        context: ContextTypes.DEFAULT_TYPE,
+    ):
+        """
+        Change the model used Ollama.
+
+        Arguments:
+        ==========
+        update: The update to be processed.
+        context: The context for the inference.
+        """
+        if self.is_admin(update):
+            model: str = self.get_content(update.message.text)
+            self.ollama_state.model = model
+            await update.message.reply_text(
+                f"Alright! changing to *{model}*.", parse_mode="Markdown"
+            )
+        else:
+            await update.message.reply_text("You are not a Admin!")

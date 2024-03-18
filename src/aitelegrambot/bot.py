@@ -19,9 +19,18 @@
 This module defines the TelegramBot class.
 """
 
-from telegram.ext import ApplicationBuilder, CommandHandler, Application
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    Application,
+)
 from ollama import Client
-from aitelegrambot.commandhandlers import CommandHandlers
+from aitelegrambot.commandhandlers import (
+    NormalCommandHandlers,
+    CommandHandlers,
+    AdministrationCommandHandlers,
+    OllamaState,
+)
 
 
 class TelegramBot:
@@ -29,7 +38,13 @@ class TelegramBot:
     A class that implements a Telegram bot using the Ollama framework.
     """
 
-    def __init__(self, ollama_host: str, bot_token: str, default_model: str):
+    def __init__(
+        self,
+        ollama_host: str,
+        bot_token: str,
+        default_model: str,
+        administrator_user_id: str,
+    ):
         """
         Initializes an instance of TelegramBot.
 
@@ -39,10 +54,16 @@ class TelegramBot:
         bot_token: Bot token for telegram.
         default_model: The default model to load when the bot is
         initialized.
+        administrator_user_id: Telegram user id of the administrator.
         """
-        self.command_handlers: CommandHandlers = CommandHandlers(
-            Client(host=ollama_host), default_model
+        ollama_state: OllamaState = OllamaState(Client(host=ollama_host), default_model)
+        self.normal_command_handlers: CommandHandlers = NormalCommandHandlers(
+            ollama_state
         )
+        self.administrative_command_handlers: CommandHandlers = (
+            AdministrationCommandHandlers(ollama_state, administrator_user_id)
+        )
+
         self.application: Application = ApplicationBuilder().token(bot_token).build()
 
     def run(self):
@@ -50,9 +71,21 @@ class TelegramBot:
         Run the bot.
         """
         self.application.add_handler(
-            CommandHandler("start", self.command_handlers.start),
+            CommandHandler("start", self.normal_command_handlers.start),
         )
         self.application.add_handler(
-            CommandHandler("infer", self.command_handlers.inference),
+            CommandHandler("infer", self.normal_command_handlers.inference),
         )
+        self.application.add_handler(
+            CommandHandler(
+                "list_models", self.administrative_command_handlers.list_models
+            )
+        )
+        self.application.add_handler(
+            CommandHandler(
+                "change_model",
+                self.administrative_command_handlers.change_model,
+            )
+        )
+
         self.application.run_polling()

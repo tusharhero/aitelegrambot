@@ -32,6 +32,7 @@ def main():
         ollama_host=os.environ.get("OLLAMA_HOST", "localhost:11434"),
         bot_token=os.environ["TELEGRAM_BOT_TOKEN"],
         default_model=os.environ.get("DEFAULT_MODEL", "tusharhero/rationalai"),
+        administrator_user_id=os.environ.get("ADMIN_ID", "nil"),
     )
 
     bot.run()
