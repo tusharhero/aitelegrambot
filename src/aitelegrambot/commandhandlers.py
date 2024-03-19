@@ -153,7 +153,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         context: The context for the inference.
         """
         if not self.is_admin(update):
-            await update.message.reply_text("You are not a Admin!")
+            await update.message.reply_text("You are not an Admin!")
             return
 
         model_list: list[str] = [
@@ -182,7 +182,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         context: The context for the inference.
         """
         if not self.is_admin(update):
-            await update.message.reply_text("You are not a Admin!")
+            await update.message.reply_text("You are not an Admin!")
             return
         model: str = self.get_content(update.message.text)
         self.ollama_state.model = model
@@ -204,7 +204,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         context: The context for the inference.
         """
         if not self.is_admin(update):
-            await update.message.reply_text("You are not a Admin!")
+            await update.message.reply_text("You are not an Admin!")
             return
         model: str = self.get_content(update.message.text)
         await update.message.reply_text(f"Pulling {model}!")
