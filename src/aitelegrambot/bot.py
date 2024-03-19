@@ -87,5 +87,11 @@ class TelegramBot:
                 self.administrative_command_handlers.change_model,
             )
         )
+        self.application.add_handler(
+            CommandHandler(
+                "remove_model",
+                self.administrative_command_handlers.remove_model,
+            )
+        )
 
         self.application.run_polling()

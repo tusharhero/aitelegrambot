@@ -210,3 +210,24 @@ class AdministrationCommandHandlers(CommandHandlers):
         await update.message.reply_text(f"Pulling {model}!")
         self.ollama_state.pull(model)
         await update.message.reply_text(f"Done pulling {model}!")
+
+    async def remove_model(
+        self,
+        update: Update,
+        context: ContextTypes.DEFAULT_TYPE,
+    ):
+        """
+        Delete the model used by Ollama.
+
+        Arguments:
+        ==========
+        update: The update to be processed.
+        context: The context for the inference.
+        """
+        if not self.is_admin(update):
+            await update.message.reply_text("You are not an Admin!")
+            return
+        model: str = self.get_content(update.message.text)
+        await update.message.reply_text(f"Deleting {model}!")
+        self.ollama_state.delete(model)
+        await update.message.reply_text(f"Done deleting {model}!")
