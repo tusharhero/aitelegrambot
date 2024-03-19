@@ -25,3 +25,11 @@
 ## 0.2.0
 
 - The bot now replies to the message which ran the infer command.
+
+## 0.3.0
+
+- The bot has an administration feature which allows the admin to:
+  1. Change the current model.
+  2. Pull a model.
+  3. Delete a model.
+  4. List models.
