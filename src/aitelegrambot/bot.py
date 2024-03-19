@@ -89,6 +89,12 @@ class TelegramBot:
         )
         self.application.add_handler(
             CommandHandler(
+                "pull_model",
+                self.administrative_command_handlers.pull_model,
+            )
+        )
+        self.application.add_handler(
+            CommandHandler(
                 "remove_model",
                 self.administrative_command_handlers.remove_model,
             )
