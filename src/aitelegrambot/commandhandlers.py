@@ -152,20 +152,21 @@ class AdministrationCommandHandlers(CommandHandlers):
         update: The update to be processed.
         context: The context for the inference.
         """
-        if self.is_admin(update):
-            model_list: list[str] = [
-                model["name"] for model in self.ollama_state.client.list()["models"]
-            ]
-            models_text = "\n".join(
-                [
-                    f"- [{model_name}](https://ollama.com/library/{model_name})\n\
-                `/change_model {model_name}`"
-                    for model_name in model_list
-                ]
-            )
-            await update.message.reply_text(models_text, parse_mode="Markdown")
-        else:
+        if not self.is_admin(update):
             await update.message.reply_text("You are not a Admin!")
+            return
+
+        model_list: list[str] = [
+            model["name"] for model in self.ollama_state.client.list()["models"]
+        ]
+        models_text = "\n".join(
+            [
+                f"- [{model_name}](https://ollama.com/library/{model_name})\n\
+            `/change_model {model_name}`"
+                for model_name in model_list
+            ]
+        )
+        await update.message.reply_text(models_text, parse_mode="Markdown")
 
     async def change_model(
         self,
@@ -180,14 +181,14 @@ class AdministrationCommandHandlers(CommandHandlers):
         update: The update to be processed.
         context: The context for the inference.
         """
-        if self.is_admin(update):
-            model: str = self.get_content(update.message.text)
-            self.ollama_state.model = model
-            await update.message.reply_text(
-                f"Alright! changing to *{model}*.", parse_mode="Markdown"
-            )
-        else:
+        if not self.is_admin(update):
             await update.message.reply_text("You are not a Admin!")
+            return
+        model: str = self.get_content(update.message.text)
+        self.ollama_state.model = model
+        await update.message.reply_text(
+            f"Alright! changing to *{model}*.", parse_mode="Markdown"
+        )
 
     async def pull_model(
         self,
@@ -202,10 +203,10 @@ class AdministrationCommandHandlers(CommandHandlers):
         update: The update to be processed.
         context: The context for the inference.
         """
-        if self.is_admin(update):
-            model: str = self.get_content(update.message.text)
-            await update.message.reply_text(f"Pulling {model}!")
-            self.ollama_state.pull(model)
-            await update.message.reply_text(f"Done pulling {model}!")
-        else:
+        if not self.is_admin(update):
             await update.message.reply_text("You are not a Admin!")
+            return
+        model: str = self.get_content(update.message.text)
+        await update.message.reply_text(f"Pulling {model}!")
+        self.ollama_state.pull(model)
+        await update.message.reply_text(f"Done pulling {model}!")
