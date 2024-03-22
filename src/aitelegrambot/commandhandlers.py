@@ -154,7 +154,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         """
         if not self.is_admin(update):
             await update.message.reply_text("You are not an Admin!")
-            return
+            return None
 
         model_list: list[str] = [
             model["name"] for model in self.ollama_state.client.list()["models"]
@@ -183,7 +183,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         """
         if not self.is_admin(update):
             await update.message.reply_text("You are not an Admin!")
-            return
+            return None
         model: str = self.get_content(update.message.text)
         self.ollama_state.model = model
         await update.message.reply_text(
@@ -205,7 +205,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         """
         if not self.is_admin(update):
             await update.message.reply_text("You are not an Admin!")
-            return
+            return None
         model: str = self.get_content(update.message.text)
         await update.message.reply_text(f"Pulling {model}!")
         self.ollama_state.pull(model)
@@ -226,7 +226,7 @@ class AdministrationCommandHandlers(CommandHandlers):
         """
         if not self.is_admin(update):
             await update.message.reply_text("You are not an Admin!")
-            return
+            return None
         model: str = self.get_content(update.message.text)
         await update.message.reply_text(f"Deleting {model}!")
         self.ollama_state.delete(model)
