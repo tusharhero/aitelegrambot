@@ -207,6 +207,11 @@ class AdministrationCommandHandlers(CommandHandlers):
             await update.message.reply_text("You are not an Admin!")
             return None
         model: str = self.get_content(update.message.text)
+        if len(model) == 0:
+            await update.message.reply_text(
+                "We don't have any models!\nTry pulling them."
+            )
+            return None
         await update.message.reply_text(f"Pulling {model}!")
         self.ollama_state.pull(model)
         await update.message.reply_text(f"Done pulling {model}!")
