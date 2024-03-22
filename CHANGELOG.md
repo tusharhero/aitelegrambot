@@ -33,3 +33,8 @@
   2. Pull a model.
   3. Delete a model.
   4. List models.
+
+## 0.3.1
+
+- Fix bug with list models command: Error and reply when no models are
+  available.
