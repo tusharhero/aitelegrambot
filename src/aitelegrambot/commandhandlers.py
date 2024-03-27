@@ -19,7 +19,7 @@
 This module defines the TelegramBot class.
 """
 
-from telegram import Update
+from telegram import Update, Message
 from telegram.ext import ContextTypes
 from ollama import Client
 import aitelegrambot.constants as constants
@@ -89,6 +89,7 @@ class NormalCommandHandlers(CommandHandlers):
         self,
         update: Update,
         context: ContextTypes.DEFAULT_TYPE,
+        message_chunk_size: int,
     ):
         """
         Performs inference on the given update.
@@ -97,21 +98,31 @@ class NormalCommandHandlers(CommandHandlers):
         ==========
         update: The update to be processed.
         context: The context for the inference.
+        message_chunk_size: The number of words to be send at a time.
         """
         query: str = self.get_content(update.message.text)
-
-        await update.message.reply_text(
-            text=self.ollama_state.client.chat(
-                model=self.ollama_state.model,
-                messages=[
-                    {
-                        "role": "user",
-                        "content": query,
-                    },
-                ],
-            )["message"]["content"],
-            parse_mode="Markdown",
+        message: Message = await update.message.reply_text(
+            text="wait...", parse_mode="Markdown"
         )
+        total_message: str = ""
+        for message_chunk in self.ollama_state.client.chat(
+            model=self.ollama_state.model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": query,
+                },
+            ],
+            stream=True,
+        ):
+            total_message += message_chunk["message"]["content"]
+            is_message_rounded: bool = (
+                len(total_message.split(" ")) % message_chunk_size == 0
+            )
+            if is_message_rounded:
+                await message.edit_text(text=total_message, parse_mode="Markdown")
+        if not is_message_rounded:
+            await message.edit_text(text=total_message, parse_mode="Markdown")
 
 
 class AdministrationCommandHandlers(CommandHandlers):
