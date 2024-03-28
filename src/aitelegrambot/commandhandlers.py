@@ -117,7 +117,9 @@ class NormalCommandHandlers(CommandHandlers):
         ):
             total_message += message_chunk["message"]["content"]
             is_message_rounded: bool = (
-                len(total_message.split(" ")) % self.client.message_chunk_size == 0
+                len(total_message.split(" "))
+                % self.ollama_state.message_chunk_size
+                == 0
             )
             if is_message_rounded:
                 await message.edit_text(text=total_message, parse_mode="Markdown")

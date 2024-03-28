@@ -44,6 +44,12 @@
 - Add support for ~streaming responses~ (Receiving the messages, as
   the LLM generates them).
 
+_The following two releases are just very bug fixes which should
+  have been properly tested. 
 ## 0.4.1
+
+- Fix bugs
+
+## 0.4.2
 
 - Fix bugs
