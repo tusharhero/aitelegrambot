@@ -53,3 +53,9 @@ _The following two releases are just very basic bug fixes which should
 ## 0.4.2
 
 - Fix bugs
+
+## 0.5.0
+
+- Add support for both, streaming and non-streaming inference.
+- Default to non-streaming.
+- New option to customize streaming or non-streaming.
