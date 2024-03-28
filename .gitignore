@@ -1,2 +1,4 @@
 /.venv/
 /.env
+/dist/
+/src/aitelegrambot/__pycache__/
