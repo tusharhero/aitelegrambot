@@ -34,10 +34,12 @@ class OllamaState:
     ==========
     ollama_client: The Ollama client to use for sending messages.
     model: The model to use for inference.
+    message_chunk_size: The number of words to be send at a time.
     """
 
     client: Client
     model: str
+    message_chunk_size: int
 
 
 @dataclass
@@ -89,7 +91,6 @@ class NormalCommandHandlers(CommandHandlers):
         self,
         update: Update,
         context: ContextTypes.DEFAULT_TYPE,
-        message_chunk_size: int,
     ):
         """
         Performs inference on the given update.
@@ -98,7 +99,6 @@ class NormalCommandHandlers(CommandHandlers):
         ==========
         update: The update to be processed.
         context: The context for the inference.
-        message_chunk_size: The number of words to be send at a time.
         """
         query: str = self.get_content(update.message.text)
         message: Message = await update.message.reply_text(
@@ -117,7 +117,7 @@ class NormalCommandHandlers(CommandHandlers):
         ):
             total_message += message_chunk["message"]["content"]
             is_message_rounded: bool = (
-                len(total_message.split(" ")) % message_chunk_size == 0
+                len(total_message.split(" ")) % self.client.message_chunk_size == 0
             )
             if is_message_rounded:
                 await message.edit_text(text=total_message, parse_mode="Markdown")

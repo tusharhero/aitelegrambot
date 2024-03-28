@@ -44,6 +44,7 @@ class TelegramBot:
         bot_token: str,
         default_model: str,
         administrator_user_id: int,
+        message_chunk_size: int,
     ):
         """
         Initializes an instance of TelegramBot.
@@ -55,10 +56,14 @@ class TelegramBot:
         default_model: The default model to load when the bot is
         initialized.
         administrator_user_id: Telegram user id of the administrator.
+        message_chunk_size: The number of words to be send at a time.
         """
-        ollama_state: OllamaState = OllamaState(Client(host=ollama_host), default_model)
+        ollama_state: OllamaState = OllamaState(
+            Client(host=ollama_host),
+            default_model,
+        )
         self.normal_command_handlers: CommandHandlers = NormalCommandHandlers(
-            ollama_state
+            ollama_state, message_chunk_size
         )
         self.administrative_command_handlers: CommandHandlers = (
             AdministrationCommandHandlers(ollama_state, administrator_user_id)
