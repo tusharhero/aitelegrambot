@@ -44,6 +44,7 @@ class TelegramBot:
         bot_token: str,
         default_model: str,
         administrator_user_id: int,
+        enable_streaming_response: bool,
         message_chunk_size: int,
     ):
         """
@@ -56,6 +57,7 @@ class TelegramBot:
         default_model: The default model to load when the bot is
         initialized.
         administrator_user_id: Telegram user id of the administrator.
+        enable_streaming_response: Enable streaming response option.
         message_chunk_size: The number of words to be send at a time.
         """
         ollama_state: OllamaState = OllamaState(
@@ -64,6 +66,12 @@ class TelegramBot:
         self.normal_command_handlers: CommandHandlers = NormalCommandHandlers(
             ollama_state
         )
+        self.normal_command_handlers.inference = (
+            self.normal_command_handlers.steaming_inference
+            if enable_streaming_response
+            else self.normal_command_handlers.basic_inference
+        )
+
         self.administrative_command_handlers: CommandHandlers = (
             AdministrationCommandHandlers(ollama_state, administrator_user_id)
         )

@@ -88,7 +88,35 @@ class NormalCommandHandlers(CommandHandlers):
             chat_id=update.effective_chat.id, text=constants.WELCOME_MESSAGE
         )
 
-    async def inference(
+    async def basic_inference(
+        self,
+        update: Update,
+        context: ContextTypes.DEFAULT_TYPE,
+    ):
+        """
+        Performs inference on the given update.
+
+        Arguments:
+        ==========
+        update: The update to be processed.
+        context: The context for the inference.
+        """
+        query: str = self.get_content(update.message.text)
+
+        await update.message.reply_text(
+            text=self.ollama_state.client.chat(
+                model=self.ollama_state.model,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": query,
+                    },
+                ],
+            )["message"]["content"],
+            parse_mode="Markdown",
+        )
+
+    async def stream_inference(
         self,
         update: Update,
         context: ContextTypes.DEFAULT_TYPE,

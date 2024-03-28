@@ -33,6 +33,9 @@ def main():
         bot_token=os.environ["TELEGRAM_BOT_TOKEN"],
         default_model=os.environ.get("DEFAULT_MODEL", "tusharhero/rationalai"),
         administrator_user_id=int(os.environ.get("ADMIN_ID", 0)),
+        enable_streaming_response=bool(
+            os.environ.get("ENABLE_STREAMING_RESPONSE", "disable") == "enable"
+        ),
         message_chunk_size=int(os.environ.get("MESSAGE_CHUNK_SIZE", 5)),
     )
 
