@@ -24,6 +24,7 @@ from telegram.ext import ContextTypes
 from ollama import Client
 import aitelegrambot.constants as constants
 import re
+import time
 from dataclasses import dataclass
 
 
@@ -104,7 +105,7 @@ class NormalCommandHandlers(CommandHandlers):
         message: Message = await update.message.reply_text(
             text="wait...", parse_mode="Markdown"
         )
-        total_message: str = ""
+        message_stream: list[str] = []
         for message_chunk in self.ollama_state.client.chat(
             model=self.ollama_state.model,
             messages=[
@@ -115,16 +116,17 @@ class NormalCommandHandlers(CommandHandlers):
             ],
             stream=True,
         ):
-            total_message += message_chunk["message"]["content"]
+            message_stream.append(message_chunk["message"]["content"])
             is_message_rounded: bool = (
-                len(total_message.split(" "))
-                % self.ollama_state.message_chunk_size
-                == 0
+                len(message_stream) % self.ollama_state.message_chunk_size == 0
             )
             if is_message_rounded:
-                await message.edit_text(text=total_message, parse_mode="Markdown")
+                await message.edit_text(
+                    text="".join(message_stream), parse_mode="Markdown"
+                )
+                time.sleep(2)
         if not is_message_rounded:
-            await message.edit_text(text=total_message, parse_mode="Markdown")
+            await message.edit_text(text="".join(message_stream), parse_mode="Markdown")
 
 
 class AdministrationCommandHandlers(CommandHandlers):
