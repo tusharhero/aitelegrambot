@@ -38,3 +38,8 @@
 
 - Fix bug with list models command: Error and reply when no models are
   available.
+
+## 0.4.0
+
+- Add support for ~streaming responses~ (Receiving the messages, as
+  the LLM generates them).

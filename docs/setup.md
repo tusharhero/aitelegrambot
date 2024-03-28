@@ -42,6 +42,7 @@ TELEGRAM_BOT_TOKEN=tokenhere
 DEFAULT_MODEL=defaultmodelhere
 OLLAMA_HOST=ollamahosthere
 ADMIN_ID=adminuserid
+MESSAGE_CHUNK_SIZE=5
 ```
 
 You may omit `DEFAULT_MODEL` and `OLLAMA_HOST`, if you are going to
