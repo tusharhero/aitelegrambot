@@ -42,12 +42,21 @@ TELEGRAM_BOT_TOKEN=tokenhere
 DEFAULT_MODEL=defaultmodelhere
 OLLAMA_HOST=ollamahosthere
 ADMIN_ID=adminuserid
+ENABLE_STREAMING_RESPONSE=disable
 MESSAGE_CHUNK_SIZE=5
 ```
 
-You may omit `DEFAULT_MODEL` and `OLLAMA_HOST`, if you are going to
-use the default settings (`OLLAMA_HOST` being `localhost:11434` and
-`DEFAULT_MODEL` being `tusharhero/rationalai`).
+Here is a table detailing each option.
+
+| Option                      | Description                                                                                                | Examples                                         | Required                               | Runtime modifiable |
+|-----------------------------|------------------------------------------------------------------------------------------------------------|--------------------------------------------------|----------------------------------------|--------------------|
+| `TELEGRAM_BOT_TOKEN`        | Telegram bot token issued by Telegram's botfather                                                          | `9999999999:XXXXXXXXXXXXXXXXXXXXX_XXXXXXXXXXXXX` | Yes                                    | No                 |
+| `DEFAULT_MODEL`             | The default model to be used by the Telegram Bot (It can be changed during runtime by the admin)           | `tusharhero/rationalai`                          | No                                     | Yes                |
+| `OLLAMA_HOST`               | Host address of the `ollama` service.                                                                      | `localhost:11434`                                | No                                     | No                 |
+| `ADMIN_ID`                  | Telegram user id of the administrator, this userid will be able to change multiple options during runtime. | `9999999999`                                     | No (Admin commands won't be available) | No                 |
+| `ENABLE_STREAMING_RESPONSE` | Select whether, the bot will stream responses or not.                                                      | `enable` or `disable`                            | No (disabled by default)               | No                 |
+| `MESSAGE_CHUNK_SIZE`        | The number of words to be send at a time, when streaming responses.                                        | `5`, `6`, any integer.                           | No (`5` by default)                    | No                 |
+
 
 5. Run the bot.
 
