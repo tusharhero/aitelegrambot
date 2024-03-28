@@ -59,11 +59,10 @@ class TelegramBot:
         message_chunk_size: The number of words to be send at a time.
         """
         ollama_state: OllamaState = OllamaState(
-            Client(host=ollama_host),
-            default_model,
+            Client(host=ollama_host), default_model, message_chunk_size
         )
         self.normal_command_handlers: CommandHandlers = NormalCommandHandlers(
-            ollama_state, message_chunk_size
+            ollama_state
         )
         self.administrative_command_handlers: CommandHandlers = (
             AdministrationCommandHandlers(ollama_state, administrator_user_id)

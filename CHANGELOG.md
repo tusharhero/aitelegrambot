@@ -43,3 +43,7 @@
 
 - Add support for ~streaming responses~ (Receiving the messages, as
   the LLM generates them).
+
+## 0.4.1
+
+- Fix bugs
