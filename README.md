@@ -1,3 +1,5 @@
+**HELP NEEDED, if you think you can help me maintain this project, please create a issue.**
+
 # Introduction
 
 aitelegrambot is a Telegram bot that uses the
