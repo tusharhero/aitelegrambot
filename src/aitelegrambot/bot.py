@@ -67,7 +67,7 @@ class TelegramBot:
             ollama_state
         )
         self.normal_command_handlers.inference = (
-            self.normal_command_handlers.steaming_inference
+            self.normal_command_handlers.steam_inference
             if enable_streaming_response
             else self.normal_command_handlers.basic_inference
         )

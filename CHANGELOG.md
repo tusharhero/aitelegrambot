@@ -59,3 +59,7 @@ _The following two releases are just very basic bug fixes which should
 - Add support for both, streaming and non-streaming inference.
 - Default to non-streaming.
 - New option to customize streaming or non-streaming.
+
+## 0.5.1
+
+- Fix bug
