@@ -63,3 +63,7 @@ _The following two releases are just very basic bug fixes which should
 ## 0.5.1
 
 - Fix bug
+
+## 0.5.2
+
+- Fix bug
