@@ -67,3 +67,9 @@ _The following two releases are just very basic bug fixes which should
 ## 0.5.2
 
 - Fix bug
+
+## 0.6.0
+
+- add help command.
+- Reply to the user even when streaming messages is disabled.
+- Fix bugs with pull and delete commands.
