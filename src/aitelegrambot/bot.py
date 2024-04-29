@@ -86,6 +86,9 @@ class TelegramBot:
             CommandHandler("start", self.normal_command_handlers.start),
         )
         self.application.add_handler(
+            CommandHandler("help", self.normal_command_handlers.help),
+        )
+        self.application.add_handler(
             CommandHandler("infer", self.normal_command_handlers.inference),
         )
         self.application.add_handler(

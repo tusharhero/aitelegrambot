@@ -25,6 +25,15 @@ according to the `ENABLE_STREAMING_RESPONSE` option, if it is disabled
 inference is done. If the option is enabled, the bot will stream the
 tokens into the response as it is being generated.
 
+### Help command
+#### invocation
+```
+/help
+```
+#### description
+
+Returns a list of all the commands.
+
 ## Administration Commands
 Commands only available for the administrator.
 ### List model command

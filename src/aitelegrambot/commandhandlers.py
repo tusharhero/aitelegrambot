@@ -85,7 +85,28 @@ class NormalCommandHandlers(CommandHandlers):
         context: The context for the message.
         """
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text=constants.WELCOME_MESSAGE
+            chat_id=update.effective_chat.id,
+            text=constants.WELCOME_MESSAGE,
+            parse_mode="Markdown",
+        )
+
+    async def help(
+        self,
+        update: Update,
+        context: ContextTypes.DEFAULT_TYPE,
+    ):
+        """
+        Informs the user about its commands.
+
+        Arguments:
+        ==========
+        update: The update to be processed.
+        context: The context for the message.
+        """
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=constants.HELP_MESSAGE,
+            parse_mode="Markdown",
         )
 
     async def basic_inference(
