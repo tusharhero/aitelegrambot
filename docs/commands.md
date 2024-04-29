@@ -5,7 +5,7 @@ Commands only available for normal users.
 ### Start command
 #### invocation
 ```
-\start
+/start
 ```
 #### description
 
@@ -15,7 +15,7 @@ version of aitelegram being used.
 ### Inference command
 #### invocation
 ```
-\infer <query>
+/infer <query>
 ```
 #### description
 
@@ -30,7 +30,7 @@ Commands only available for the administrator.
 ### List model command
 #### invocation
 ```
-\list_models
+/list_models
 ```
 #### description
 
@@ -39,7 +39,7 @@ It lists each available model along with the command to switch to it.
 ### Change model command
 #### invocation
 ```
-\change_model <model_name>
+/change_model <model_name>
 ```
 #### description
 
@@ -48,7 +48,7 @@ Changes the model to <model_name>.
 ### Pull model
 #### invocation
 ```
-\pull_model <model_name>
+/pull_model <model_name>
 ```
 #### description
 
@@ -57,7 +57,7 @@ Pull <model_name> from Ollama's servers.
 ### Remove model
 #### invocation
 ```
-\delete_model <model_name>
+/delete_model <model_name>
 ```
 #### description
 
