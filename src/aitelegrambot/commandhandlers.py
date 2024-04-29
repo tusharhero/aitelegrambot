@@ -256,7 +256,7 @@ class AdministrationCommandHandlers(CommandHandlers):
             )
             return None
         await update.message.reply_text(f"Pulling {model}!")
-        self.ollama_state.pull(model)
+        self.ollama_state.client.pull(model)
         await update.message.reply_text(f"Done pulling {model}!")
 
     async def remove_model(
@@ -277,5 +277,5 @@ class AdministrationCommandHandlers(CommandHandlers):
             return None
         model: str = self.get_content(update.message.text)
         await update.message.reply_text(f"Deleting {model}!")
-        self.ollama_state.delete(model)
+        self.ollama_state.client.delete(model)
         await update.message.reply_text(f"Done deleting {model}!")
