@@ -103,7 +103,10 @@ class NormalCommandHandlers(CommandHandlers):
         """
         query: str = self.get_content(update.message.text)
 
-        await update.message.reply_text(
+        message: Message = await update.message.reply_text(
+            text="wait...", parse_mode="Markdown"
+        )
+        await message.edit_text(
             text=self.ollama_state.client.chat(
                 model=self.ollama_state.model,
                 messages=[
