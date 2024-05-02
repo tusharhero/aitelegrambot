@@ -43,7 +43,7 @@ class TelegramBot:
         ollama_host: str,
         bot_token: str,
         default_model: str,
-        administrator_user_id: int,
+        administrator_user_ids: list[int],
         enable_streaming_response: bool,
         message_chunk_size: int,
     ):
@@ -56,7 +56,7 @@ class TelegramBot:
         bot_token: Bot token for telegram.
         default_model: The default model to load when the bot is
         initialized.
-        administrator_user_id: Telegram user id of the administrator.
+        administrator_user_ids: Telegram user ids of the administrators.
         enable_streaming_response: Enable streaming response option.
         message_chunk_size: The number of words to be send at a time.
         """
@@ -73,7 +73,7 @@ class TelegramBot:
         )
 
         self.administrative_command_handlers: CommandHandlers = (
-            AdministrationCommandHandlers(ollama_state, administrator_user_id)
+            AdministrationCommandHandlers(ollama_state, administrator_user_ids)
         )
 
         self.application: Application = ApplicationBuilder().token(bot_token).build()

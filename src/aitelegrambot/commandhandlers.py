@@ -183,28 +183,28 @@ class NormalCommandHandlers(CommandHandlers):
 
 class AdministrationCommandHandlers(CommandHandlers):
     """
-    Class for administrating Ollama by the Bot administrator.
+    Class for administrating Ollama by the Bot administrators.
     """
 
-    def __init__(self, ollama_state: OllamaState, administrator_user_id: str):
+    def __init__(self, ollama_state: OllamaState, administrator_user_ids: list[int]):
         """
         Arguments:
         ==========
         ollama_state: The Ollama State with Ollama client and model name.
-        administrator_user_id: Telegram user id of the administrator.
+        administrator_user_ids: Telegram user ids of the administrators.
         """
         super().__init__(ollama_state)
-        self.administrator_user_id: int = administrator_user_id
+        self.administrator_user_ids: list[int] = administrator_user_ids
 
     def is_admin(self, update: Update):
         """
-        Check if the current user is the administrator.
+        Check if the current user is an administrator.
 
         Arguments:
         ==========
         update: The update to be processed.
         """
-        return update.message.from_user.id == self.administrator_user_id
+        return (update.message.from_user.id in self.administrator_user_ids)
 
     async def list_models(
         self,

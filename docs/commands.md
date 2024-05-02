@@ -35,7 +35,7 @@ tokens into the response as it is being generated.
 Returns a list of all the commands.
 
 ## Administration Commands
-Commands only available for the administrator.
+Commands only available for the administrators.
 ### List model command
 #### invocation
 ```

@@ -73,3 +73,7 @@ _The following two releases are just very basic bug fixes which should
 - add help command.
 - Reply to the user even when streaming messages is disabled.
 - Fix bugs with pull and delete commands.
+
+## 0.7.0
+
+- add support for multiple administrators.
