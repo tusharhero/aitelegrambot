@@ -77,3 +77,8 @@ _The following two releases are just very basic bug fixes which should
 ## 0.7.0
 
 - add support for multiple administrators.
+
+## 0.8.0
+
+- add current model indication in list_models command.
+- fix error in /help command.
