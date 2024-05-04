@@ -16,5 +16,5 @@ HELP_MESSAGE: str = """
 - /list\_models
 - /change\_model <model\_name>
 - /pull\_model <model\_name>
-- /delete\_model <model\_name>
+- /remove\_model <model\_name>
 """
