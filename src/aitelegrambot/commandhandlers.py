@@ -238,7 +238,7 @@ class AdministrationCommandHandlers(CommandHandlers):
             current_model_indication: str = (
                 "*(current_model)*"
                 if model_name == self.ollama_state.model
-                else "no"
+                else ""
             )
             return f"- {current_model_indication}\
             [{model_name}](https://ollama.com/library/{model_name})\n\

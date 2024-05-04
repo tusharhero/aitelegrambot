@@ -82,3 +82,7 @@ _The following two releases are just very basic bug fixes which should
 
 - add current model indication in list_models command.
 - fix error in /help command.
+
+## 0.8.1
+
+- remove debugging statements from /list_models command.
