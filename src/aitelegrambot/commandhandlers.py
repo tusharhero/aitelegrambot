@@ -226,13 +226,26 @@ class AdministrationCommandHandlers(CommandHandlers):
         model_list: list[str] = [
             model["name"] for model in self.ollama_state.client.list()["models"]
         ]
-        models_text = "\n".join(
-            [
-                f"- [{model_name}](https://ollama.com/library/{model_name})\n\
+
+        if len(model_list) == 0:
+            await update.message.reply_text(
+                "No models available. Pull some using the `/pull_model` command.",
+                parse_mode="Markdown"
+            )
+            return None
+
+        def get_model_text(model_name: str) -> str:
+            current_model_indication: str = (
+                "*(current_model)*"
+                if model_name == self.ollama_state.model
+                else "no"
+            )
+            return f"- {current_model_indication}\
+            [{model_name}](https://ollama.com/library/{model_name})\n\
             `/change_model {model_name}`"
-                for model_name in model_list
-            ]
-        )
+
+        models_text = "\n".join(map(get_model_text, model_list))
+
         await update.message.reply_text(models_text, parse_mode="Markdown")
 
     async def change_model(
