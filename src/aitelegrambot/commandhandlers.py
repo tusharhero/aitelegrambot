@@ -153,6 +153,7 @@ class NormalCommandHandlers(CommandHandlers):
         update: The update to be processed.
         context: The context for the inference.
         """
+        prev_msg_size: int = 0
         query: str = self.get_content(update.message.text)
         message: Message = await update.message.reply_text(
             text="wait...", parse_mode="Markdown"
@@ -169,16 +170,26 @@ class NormalCommandHandlers(CommandHandlers):
             stream=True,
         ):
             message_stream.append(message_chunk["message"]["content"])
+            cur_msg_size = len(message_stream)
+
+            # avoid BadRequest
+            if cur_msg_size == prev_msg_size:
+                continue
+
             is_message_rounded: bool = (
-                len(message_stream) % self.ollama_state.message_chunk_size == 0
+                cur_msg_size % self.ollama_state.message_chunk_size == 0
             )
-            if is_message_rounded:
+
+            is_last_chunk: bool = (
+                message_chunk["done"]
+            )
+
+            if is_message_rounded or is_last_chunk:
+                prev_msg_size = cur_msg_size
                 await message.edit_text(
                     text="".join(message_stream), parse_mode="Markdown"
                 )
                 time.sleep(2)
-        if not is_message_rounded:
-            await message.edit_text(text="".join(message_stream), parse_mode="Markdown")
 
 
 class AdministrationCommandHandlers(CommandHandlers):
