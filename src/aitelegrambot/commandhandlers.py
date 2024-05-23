@@ -63,7 +63,7 @@ class CommandHandlers:
         ==========
         raw_query: the raw query from telegram.
         """
-        return re.split(" ", raw_query, 1)[-1]
+        return re.split(" ", raw_query, 1)[1]
 
 
 class NormalCommandHandlers(CommandHandlers):
@@ -124,6 +124,13 @@ class NormalCommandHandlers(CommandHandlers):
         """
         query: str = self.get_content(update.message.text)
 
+        if query == "":
+            await update.message.reply_text(
+                text=constants.MISTAKEN_CLICK,
+                parse_mode="Markdown"
+            )
+            return
+
         message: Message = await update.message.reply_text(
             text="wait...", parse_mode="Markdown"
         )
@@ -155,6 +162,14 @@ class NormalCommandHandlers(CommandHandlers):
         """
         prev_msg_size: int = 0
         query: str = self.get_content(update.message.text)
+
+        if query == "":
+            await update.message.reply_text(
+                text=constants.MISTAKEN_CLICK,
+                parse_mode="Markdown"
+            )
+            return
+
         message: Message = await update.message.reply_text(
             text="wait...", parse_mode="Markdown"
         )

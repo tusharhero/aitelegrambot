@@ -18,3 +18,9 @@ HELP_MESSAGE: str = """
 - /pull\_model <model\_name>
 - /remove\_model <model\_name>
 """
+
+MISTAKEN_CLICK:str = """
+You have made a mistake by clicking on the `\infer` \
+command directly without providing an input, to do \
+this properly please provide a prompt along with the command.
+"""
