@@ -63,7 +63,7 @@ class CommandHandlers:
         ==========
         raw_query: the raw query from telegram.
         """
-        return re.split(" ", raw_query, 1)[1]
+        return re.split(" ", raw_query, 1)[0]
 
 
 class NormalCommandHandlers(CommandHandlers):
