@@ -93,3 +93,6 @@ _The following two releases are just very basic bug fixes which should
 
 ## 0.8.3
 - Fix error in /infer command.
+
+## 0.8.4
+- Fix behaviour of /infer command.
