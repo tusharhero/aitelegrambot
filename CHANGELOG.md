@@ -86,3 +86,7 @@ _The following two releases are just very basic bug fixes which should
 ## 0.8.1
 
 - remove debugging statements from /list_models command.
+
+## 0.8.2
+- fix BadRequest response error when using streaming inference.
+- add help message when user sends an empty message to /infer commands.
